@@ -20,6 +20,9 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 
+Route.get('/sync/licitacoes', 'SyncDataController.licitacoes')
+Route.get('/sync/itens', 'SyncDataController.itens')
+
 Route.get('/licitacoes/:unidade/:data_min/:data_max', 'LicitacaoController.index')
 Route.get('/licitacoes/:numero', 'LicitacaoController.show')
 Route.get('/orgaos', 'OrgaoController.index')
