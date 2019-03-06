@@ -2,9 +2,9 @@
 
 const Model = use('Model')
 
-class Licitacao extends Model {
+class Servico extends Model {
     static get table() {
-        return 'licitacoes'
+        return 'servicos'
     }
 
     static get createdAtColumn() {
@@ -14,10 +14,6 @@ class Licitacao extends Model {
     static get updatedAtColumn() {
         return null
     }
-
-    itens() {
-        return this.hasMany('App/Models/Item', 'id', 'licitacoes_id')
-    }
 }
 
-module.exports = Licitacao
+module.exports = Servico

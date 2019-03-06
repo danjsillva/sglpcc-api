@@ -20,11 +20,13 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 
-Route.get('/sync/licitacoes', 'SyncDataController.licitacoes')
-Route.get('/sync/itens', 'SyncDataController.itens')
+Route.get('fornecedores/:id/:busca/:uf', 'FornecedorController.index')
 
-Route.get('/licitacoes/:unidade/:data_min/:data_max', 'LicitacaoController.index')
-Route.get('/licitacoes/:numero', 'LicitacaoController.show')
-Route.get('/orgaos', 'OrgaoController.index')
-Route.get('/unidades/:orgao', 'UnidadeController.index')
-Route.get('/itens/:material/:servico', 'ItemController.index')
+Route.get('materiais/:id/:busca', 'MaterialController.index')
+Route.get('servicos/:id/:busca', 'ServicoController.index')
+
+Route.get('licitacoes/:id/:busca/:unidades_id', 'LicitacaoController.index')
+Route.get('itens/:licitacoes_id', 'ItemController.index')
+
+Route.get('orgaos/:id/:busca/:uf', 'OrgaoController.index')
+Route.get('unidades/:id/:busca/:orgaos_id', 'UnidadeController.index')
