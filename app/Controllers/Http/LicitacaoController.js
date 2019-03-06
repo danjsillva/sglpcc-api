@@ -20,6 +20,7 @@ class LicitacaoController {
                     this.where('unidades_id', params.unidades_id)
                 }
             })
+            .with('unidade')
             .withCount('itens')
             .fetch()
 

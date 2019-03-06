@@ -15,6 +15,10 @@ class Licitacao extends Model {
         return null
     }
 
+    unidade() {
+        return this.hasOne('App/Models/Unidade', 'unidades_id', 'id')
+    }
+
     itens() {
         return this.hasMany('App/Models/Item', 'id', 'licitacoes_id')
     }
