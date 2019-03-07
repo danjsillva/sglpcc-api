@@ -22,11 +22,12 @@ Route.get('/', () => {
 
 Route.get('fornecedores/:id/:busca/:uf', 'FornecedorController.index')
 
+Route.post('materiais/detalhes/:materiais_id', 'MaterialController.getMaterialDetalhes')
 Route.get('materiais/:id/:busca', 'MaterialController.index')
 Route.get('servicos/:id/:busca', 'ServicoController.index')
 
 Route.get('licitacoes/:id/:busca/:unidades_id', 'LicitacaoController.index')
-Route.get('itens/:licitacoes_id', 'ItemController.index')
+Route.get('itens/licitacao/:licitacoes_id', 'ItemController.getItensLicitacao')
 
 Route.get('orgaos/:id/:busca/:uf', 'OrgaoController.index')
 Route.get('unidades/:id/:busca/:orgaos_id', 'UnidadeController.index')
