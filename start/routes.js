@@ -29,7 +29,7 @@ Route.get('materiais/:id/:busca', 'MaterialController.index')
 Route.get('servicos/:id/:busca', 'ServicoController.index')
 
 Route.get('licitacoes/:id/:busca/:unidades_id', 'LicitacaoController.index')
-Route.get('itens/licitacao/:licitacoes_id', 'ItemController.index')
+Route.post('itens/licitacao/:licitacoes_id', 'ItemController.index')
 
 Route.get('orgaos/:id/:busca/:uf', 'OrgaoController.index')
 Route.get('unidades/:id/:busca/:orgaos_id', 'UnidadeController.index')

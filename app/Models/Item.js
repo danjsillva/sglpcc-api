@@ -3,17 +3,17 @@
 const Model = use('Model')
 
 class Item extends Model {
-    static boot() {
-        super.boot()
+    // static boot() {
+    //     super.boot()
         
-        this.addHook('afterFetch', async items => {
-            for (let item of items) {
-                item.preco_avg = await this.query().where('materiais_id', item.materiais_id).getAvg('preco') || 0
-                // item.preco_min = await this.query().where('materiais_id', item.materiais_id).getMin('preco') || 0
-                // item.preco_max = await this.query().where('materiais_id', item.materiais_id).getMax('preco') || 0
-            }
-        })
-    }
+    //     this.addHook('afterFetch', async items => {
+    //         for (let item of items) {
+    //             item.preco_avg = await this.query().where('materiais_id', item.materiais_id).getAvg('preco') || 0
+    //             // item.preco_min = await this.query().where('materiais_id', item.materiais_id).getMin('preco') || 0
+    //             // item.preco_max = await this.query().where('materiais_id', item.materiais_id).getMax('preco') || 0
+    //         }
+    //     })
+    // }
 
     static get table() {
         return 'itens'
