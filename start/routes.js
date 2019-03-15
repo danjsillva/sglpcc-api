@@ -28,7 +28,7 @@ Route.post('materiais/detalhes/:materiais_id', 'MaterialController.getMaterialDe
 Route.get('materiais/:id/:busca', 'MaterialController.index')
 Route.get('servicos/:id/:busca', 'ServicoController.index')
 
-Route.get('licitacoes/:id/:busca/:unidades_id', 'LicitacaoController.index')
+Route.post('licitacoes', 'LicitacaoController.index')
 Route.post('itens/licitacao/:licitacoes_id', 'ItemController.index')
 
 Route.get('orgaos/:id/:busca/:uf', 'OrgaoController.index')

@@ -1,24 +1,39 @@
 'use strict'
 
+const Database = use('Database')
 const Licitacao = use('App/Models/Licitacao')
 const Item = use('App/Models/Item')
 
 class LicitacaoController {
   async index({ request, response, params }) {
-    let licitacoes = await Licitacao
-      .query()
+    let filtro = request.all()
+    let licitacoes = await Licitacao.query()
+      .distinct('licitacoes.*')
+      .select('licitacoes.*')
+      .join('itens', 'itens.licitacoes_id', 'licitacoes.id')
+      .join('fornecedores', 'itens.fornecedores_id', 'fornecedores.id')
+      .join('unidades', 'licitacoes.unidades_id', 'unidades.id')
+      .join('orgaos', 'unidades.orgaos_id', 'orgaos.id')
       .where(function () {
-        if (params.id != 0) {
-          this.where('id', params.id)
+        // filtro data da licitacao
+        if (filtro.licitacao.data[0] != 0 && filtro.licitacao.data[1] != 0) {
+          this.whereBetween('licitacoes.data', filtro.licitacao.data)
         }
-        if (params.busca != 0) {
-          this.where('identificador', 'like', `%${params.busca}%`)
-            .orWhere('responsavel', 'like', `%${params.busca}%`)
-            .orWhere('processo', 'like', `%${params.busca}%`)
-            .orWhere('objeto', 'like', `%${params.busca}%`)
+
+        // filtro unidade da licitacao (id, uf)
+        if (filtro.unidade.id.length > 0) {
+          this.whereIn('unidades.id', filtro.unidade.id)
         }
-        if (params.unidades_id != 0) {
-          this.where('unidades_id', params.unidades_id)
+        if (filtro.unidade.uf.length > 0) {
+          this.whereIn('orgaos.uf', filtro.unidade.uf)
+        }
+
+        // filtro fornecedor do item (id, uf)
+        if (filtro.fornecedor.id.length > 0) {
+          this.whereIn('fornecedores.id', filtro.fornecedor.id)
+        }
+        if (filtro.fornecedor.uf.length > 0) {
+          this.whereIn('fornecedores.uf', filtro.fornecedor.uf)
         }
       })
       .with('unidade')
