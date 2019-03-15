@@ -17,7 +17,9 @@
 const Route = use('Route')
 
 Route.get('/', () => {
-  return { greeting: 'Hello world in JSON' }
+  return {
+    greeting: 'Hello world in JSON'
+  }
 })
 
 Route.get('fornecedores/:id/:busca/:uf', 'FornecedorController.index')
@@ -27,7 +29,7 @@ Route.get('materiais/:id/:busca', 'MaterialController.index')
 Route.get('servicos/:id/:busca', 'ServicoController.index')
 
 Route.get('licitacoes/:id/:busca/:unidades_id', 'LicitacaoController.index')
-Route.get('itens/licitacao/:licitacoes_id', 'ItemController.getItensLicitacao')
+Route.get('itens/licitacao/:licitacoes_id', 'ItemController.index')
 
 Route.get('orgaos/:id/:busca/:uf', 'OrgaoController.index')
 Route.get('unidades/:id/:busca/:orgaos_id', 'UnidadeController.index')
