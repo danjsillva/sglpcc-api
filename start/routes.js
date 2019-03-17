@@ -22,14 +22,16 @@ Route.get('/', () => {
   }
 })
 
-Route.get('fornecedores/:id/:busca/:uf', 'FornecedorController.index')
+Route.post('licitacoes', 'LicitacaoController.getLicitacoes')
+Route.post('licitacoes/:licitacoes_id', 'LicitacaoController.getLicitacao')
+Route.post('licitacoes/itens/:licitacoes_id', 'LicitacaoController.getLicitacaoItens')
+
 
 Route.post('materiais/detalhes/:materiais_id', 'MaterialController.getMaterialDetalhes')
 Route.get('materiais/:id/:busca', 'MaterialController.index')
 Route.get('servicos/:id/:busca', 'ServicoController.index')
 
-Route.post('licitacoes', 'LicitacaoController.index')
-Route.post('itens/licitacao/:licitacoes_id', 'ItemController.index')
 
+Route.get('fornecedores/:id/:busca/:uf', 'FornecedorController.index')
 Route.get('orgaos/:id/:busca/:uf', 'OrgaoController.index')
 Route.get('unidades/:id/:busca/:orgaos_id', 'UnidadeController.index')
