@@ -2,6 +2,7 @@
 
 const Database = use('Database')
 const Material = use('App/Models/Material')
+const Item = use('App/Models/Item')
 
 class MaterialController {
   async index({ request, response, params }) {
@@ -22,8 +23,9 @@ class MaterialController {
 
   async getMaterialDetalhes({ request, response, params }) {
     let filtro = request.all()
-    let itens = await Database
-      .table('itens')
+    let itens = await Item
+      .query()
+      .select('preco', 'quantidade')
       .join('fornecedores', 'itens.fornecedores_id', 'fornecedores.id')
       .join('licitacoes', 'itens.licitacoes_id', 'licitacoes.id')
       .join('unidades', 'licitacoes.unidades_id', 'unidades.id')
@@ -51,18 +53,19 @@ class MaterialController {
           this.whereIn('fornecedores.uf', filtro.fornecedor.uf)
         }
       })
-      .pluck('preco')
+      .fetch()
 
     let material = await Material
       .query()
       .where('id', params.materiais_id)
       .first()
 
-    material.total_quantidade = await itens.length
-    material.total_preco = await itens.reduce((a, b) => a + b, 0)
-    material.preco_avg = await itens.reduce((a, b) => a + b, 0) / itens.length
-    material.preco_min = await Math.min(...itens)
-    material.preco_max = await Math.max(...itens)
+    material.total_processos = await itens.rows.length
+    material.total_quantidade = await itens.rows.reduce((a, b) => a + b.quantidade, 0)
+    material.total_preco = await itens.rows.reduce((a, b) => a + (b.preco * b.quantidade), 0)
+    material.preco_avg = await itens.rows.reduce((a, b) => a + (b.preco * b.quantidade), 0) / itens.rows.reduce((a, b) => a + b.quantidade, 0)
+    material.preco_min = await Math.min(...itens.rows.map(e => e.preco))
+    material.preco_max = await Math.max(...itens.rows.map(e => e.preco))
 
     return material
   }
