@@ -15,6 +15,11 @@ class LicitacaoController {
       .join('unidades', 'licitacoes.unidades_id', 'unidades.id')
       .join('orgaos', 'unidades.orgaos_id', 'orgaos.id')
       .where(function () {
+        // filtro numero da licitacao
+        if (filtro.licitacao.numero != 0) {
+          this.where('licitacoes.identificador', filtro.licitacao.numero)
+            .orWhere('licitacoes.processo', filtro.licitacao.numero)
+        }
         // filtro data da licitacao
         if (filtro.licitacao.data[0] != 0 && filtro.licitacao.data[1] != 0) {
           this.whereBetween('licitacoes.data', filtro.licitacao.data)
