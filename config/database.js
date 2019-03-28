@@ -78,6 +78,6 @@ module.exports = {
       password: 'rKUcIWjKOhzk7ms_11Ae77-94iQIddoj',
       database: 'febuszvd'
     },
-    debug: Env.get('DB_DEBUG', false)
+    debug: false
   }
 }
